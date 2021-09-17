@@ -73,7 +73,8 @@ with codecs.open(dict_path, 'r', 'utf8') as reader:
     for line in reader:
         token = line.strip()
         token_dict[token] = len(token_dict)
-
+        
+ ## 标注id,使得每句一样长
 class OurTokenizer(Tokenizer):
     def _tokenize(self, text):
         R = []
@@ -95,6 +96,7 @@ def seq_padding(X, padding=0):
         np.concatenate([x, [padding] * (ML - len(x))]) if len(x) < ML else x for x in X
     ])
 
+#batch_token_ids, batch_segment_ids, batch_labels = [], [], []
 class data_generator:
     def __init__(self, data, batch_size=8, shuffle=True):
         self.data = data
@@ -206,6 +208,8 @@ def build_bert(nclass):
     # 真正调用bert的就这么一行代码
     bert_model = load_trained_model_from_checkpoint(config_path, checkpoint_path, seq_len=None)
 
+    
+   []https://blog.csdn.net/ling620/article/details/97783966/
     for l in bert_model.layers:
         l.trainable = True
 
